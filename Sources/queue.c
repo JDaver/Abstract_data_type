@@ -38,7 +38,7 @@ Queue* enqueue(Queue* q, int val){
     q->size++;
     q->array[q->rear] = val;
     q->rear = (q->rear + 1) % q->capacity;
-    
+    printf(" rear = %d \n",q->rear);
     return q;
 }
 
