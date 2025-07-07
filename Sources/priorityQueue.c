@@ -54,7 +54,7 @@ priorityQueue* buildHeap (int* array, int size){
         parent--;
     }
     newQ->array = malloc(size * sizeof(int));
-    memcpy(newQ->array,array, size * sizeof(int));
+    memcpy(newQ->array,array, size * sizeof(int)); //it is now safe to free() the original array_src
     newQ->size = size;
     return newQ;
 }
