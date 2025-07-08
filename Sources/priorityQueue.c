@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#define ERR -1
 //MAX HEAP 
 
 static int isEmpty(priorityQueue* q){
@@ -94,15 +94,16 @@ priorityQueue* insert(priorityQueue* q, int val){
     return  q;
 }
 
-priorityQueue* extractMax(priorityQueue* q){
+int extractMax(priorityQueue* q){
     if(isEmpty(q)==1){
         printf("Error, data structure is empty\n");
-        return q;
+        return ERR;
     }
+    int result = q->array[0];
     q->size--;
     q->array[0] = q->array[q->size];
     heapify(q->array,0,q->size);
-    return q;
+    return result;
 }
 
 void deletePQ(priorityQueue** q){
