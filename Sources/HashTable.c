@@ -8,22 +8,23 @@
 //HashTable AdjList collision method
 
 
-AdjList** initHashTable(int size){
+HashMap initHashTable(int size){
     int i = 0;
     int j =0;
 
-    AdjList** newHash = (AdjList**)malloc(size*sizeof(AdjList*));
-    if(newHash==NULL) goto allocError;
+    HashMap newHash;
+    newHash.array = (AdjList**)malloc(size*sizeof(AdjList));
+    if(newHash.array==NULL) goto allocError;
 
     for(i=0; i<size; i++){
-        newHash[i] = (AdjList*)malloc(sizeof(AdjList));
-        if(newHash[i] == NULL) goto allocError;
+        newHash.array[i] = (AdjList*)malloc(sizeof(AdjList));
+        if(newHash.array[i] == NULL) goto allocError;
 
-        newHash[i]->name = (char*)malloc(MAX_NAME_BUFFER*sizeof(char));
-        if(newHash[i]->name == NULL) goto allocError;
+        newHash.array[i]->name = (char*)malloc(MAX_NAME_BUFFER*sizeof(char));
+        if(newHash.array[i]->name == NULL) goto allocError;
 
-        newHash[i]->name[0] = '\0';
-        newHash[i]->next = NULL;
+        newHash.array[i]->name[0] = '\0';
+        newHash.array[i]->next = NULL;
     }
 
     return newHash;
@@ -31,12 +32,12 @@ AdjList** initHashTable(int size){
     allocError:
     printf("Error during allocation!\n");
     for(j=0; j<i; j++){
-        if(newHash[j]){
-            free(newHash[j]->name);
-            free(newHash[j]);
+        if(newHash.array[j]){
+            free(newHash.array[j]->name);
+            free(newHash.array[j]);
         }
     }
-    free(newHash);
+    free(newHash.array);
         return NULL;
 }
 
@@ -45,3 +46,4 @@ void Insert(AdjList** list,char* name, int val, int key){
     //key calculation ---->   key % sizeOf(adjList*)
     //check for collision  ----> call a collision handler function() to manage the corrrect insert 
 }
+
